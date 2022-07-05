@@ -37,6 +37,13 @@ export default function PostWidget({ slug, categories }) {
             src={post.featuredImage.url}
             />
           </div>
+          <div className='flex-grow ml-4'>
+            <p className='text-gray-500 fonst-xs'>{moment(post.createdAt).format('MM DD, YYYY')}
+            </p>
+            <Link href={`/post/${post.slug}`} key={post.title} className='text-md'>
+              {post.title}
+            </Link>
+          </div>
         </div>
       ))}
     </div>
