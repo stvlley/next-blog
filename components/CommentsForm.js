@@ -9,7 +9,7 @@ const CommentsForm = ({ slug }) => {
   const commentEl = useRef()
   const nameEl = useRef()
   const emailEl = useRef()
-  const stroeDateEl = useRef()
+  const storeDataEl = useRef()
 
   const handleCommentSubmission = () => {
     setError(false)
@@ -17,6 +17,7 @@ const CommentsForm = ({ slug }) => {
     const { value: comment } = commentEl.current;
     const { value: name } = nameEl.current;
     const { value: email } = emailEl.current;
+    const { value: storeData } = storeDataEl.current;
 
     if( !comment || !name || !email) {
       setError(true)
@@ -25,6 +26,15 @@ const CommentsForm = ({ slug }) => {
 
     const commentObj = {
       name, email, comment, slug
+    }
+
+
+    if(storeData) {
+      localStorage.setItem('name', name)
+      localStorage.setItem('email', email)
+    } else {
+      localStorage.removeItem('name', name)
+      localStorage.removeItem('email', email)
     }
   }
 
@@ -48,6 +58,12 @@ const CommentsForm = ({ slug }) => {
           placeholder='Email'
           name='email'
         />
+      </div>
+      <div className='grid grid-cols-1 gap-4 mb-4'>
+        <div className=''>
+          <input ref={storeDataEl} type='checkbox' id='storeData' value='true' />
+          <label className='text-gray-500 cursor-pointer ml-2'>Remember Me</label>
+        </div>
       </div>
       {error && <p className='text-xs-text-red-500'>All fields are required.</p>}
       <div className='mt-8'>
